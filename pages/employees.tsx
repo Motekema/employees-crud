@@ -28,6 +28,52 @@ export default function Employees() {
     console.log("Updated Employee:", updatedEmployee);
   };
 
+  const employees: Employee[] = [
+    {
+      firstname: "John",
+      lastname: "Doe",
+      email: "john.doe@example.com",
+      phone: "123-456-7890",
+      role: "Admin",
+    },
+    {
+      firstname: "Jane",
+      lastname: "Smith",
+      email: "jane.smith@example.com",
+      phone: "987-654-3210",
+      role: "Staff",
+    },
+    {
+      firstname: "Alice",
+      lastname: "Johnson",
+      email: "alice.johnson@example.com",
+      phone: "555-123-4567",
+      role: "Admin",
+    },
+    {
+      firstname: "Bob",
+      lastname: "Brown",
+      email: "bob.brown@example.com",
+      phone: "444-555-6666",
+      role: "Staff",
+    },
+    {
+      firstname: "Charlie",
+      lastname: "Davis",
+      email: "charlie.davis@example.com",
+      phone: "333-222-1111",
+      role: "Admin",
+    },
+    {
+      firstname: "David",
+      lastname: "Evans",
+      email: "david.evans@example.com",
+      phone: "222-333-4444",
+      role: "Staff",
+    },
+    // Add more employee records as needed
+  ];
+
   return (
     <div className="flex flex-col min-h-screen">
       <NavBar />
@@ -110,44 +156,43 @@ export default function Employees() {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                  <tr className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                    <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
-                      John
-                    </td>
-                    <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
-                      Doe
-                    </td>
-                    <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
-                      john.doe@example.com
-                    </td>
-                    <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
-                      123-456-7890
-                    </td>
-                    <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
-                      Admin
-                    </td>
-                    <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
-                      <button
-                        className="text-blue-500 hover:underline"
-                        onClick={() =>
-                          handleEditClick({
-                            firstname: "John",
-                            lastname: "Doe",
-                            email: "john.doe@example.com",
-                            phone: "123-456-7890",
-                            role: "Admin",
-                          })
-                        }
-                      >
-                        Edit
-                      </button>
-                      <button className="text-red-500 hover:text-red-700 hover:underline ml-4">
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                  {/* Add more employee records as needed */}
+                <tbody
+                  className="divide-y divide-gray-200 dark:divide-gray-700"
+                  style={{ maxHeight: "10px", overflowY: "auto" }}
+                >
+                  {employees.map((employee, index) => (
+                    <tr
+                      key={index}
+                      className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
+                        {employee.firstname}
+                      </td>
+                      <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
+                        {employee.lastname}
+                      </td>
+                      <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
+                        {employee.email}
+                      </td>
+                      <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
+                        {employee.phone}
+                      </td>
+                      <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
+                        {employee.role}
+                      </td>
+                      <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
+                        <button
+                          className="text-blue-500 hover:underline"
+                          onClick={() => handleEditClick(employee)}
+                        >
+                          Edit
+                        </button>
+                        <button className="text-red-500 hover:text-red-700 hover:underline ml-4">
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
