@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SideBar from "../Components/SideBar";
 import NavBar from "../Components/NavBar";
 import Footer from "../Components/Footer";
@@ -11,6 +11,7 @@ export default function Employees() {
     null
   );
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [employees, setEmployees] = useState<Employee[]>([]);
 
   const handleEditClick = (employee: Employee) => {
     setSelectedEmployee(employee);
@@ -22,68 +23,63 @@ export default function Employees() {
   };
 
   interface Employee {
-    firstname: string;
-    lastname: string;
+    _id: string;
+    firstName: string;
+    lastName: string;
     email: string;
     phone: string;
     role: string;
   }
 
-  const handleSave = (updatedEmployee: Employee) => {
-    // Save the updated employee details
-    console.log("Updated Employee:", updatedEmployee);
+  const handleSave = async (updatedEmployee: Employee) => {
+    try {
+      console.log("Saving updated employee:", updatedEmployee);
+
+      const response = await fetch("/api/employees", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedEmployee),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Failed to update employee:", errorText);
+        throw new Error("Failed to update employee");
+      }
+
+      const data = await response.json();
+      console.log("Updated employee data:", data);
+      setEmployees((prevEmployees) =>
+        prevEmployees.map((employee) =>
+          employee._id === updatedEmployee._id ? data.data : employee
+        )
+      );
+      setIsEditModalOpen(false);
+    } catch (error) {
+      console.error("Error updating employee:", error);
+    }
   };
 
   const handleCreateSave = (employee: Employee) => {
-    // Save the new employee details
-    console.log("New Employee:", employee);
+    setEmployees((prevEmployees) => [...prevEmployees, employee]);
+    setIsCreateModalOpen(false);
   };
 
-  const employees: Employee[] = [
-    {
-      firstname: "John",
-      lastname: "Doe",
-      email: "john.doe@example.com",
-      phone: "123-456-7890",
-      role: "Admin",
-    },
-    {
-      firstname: "Jane",
-      lastname: "Smith",
-      email: "jane.smith@example.com",
-      phone: "987-654-3210",
-      role: "Staff",
-    },
-    {
-      firstname: "Alice",
-      lastname: "Johnson",
-      email: "alice.johnson@example.com",
-      phone: "555-123-4567",
-      role: "Admin",
-    },
-    {
-      firstname: "Bob",
-      lastname: "Brown",
-      email: "bob.brown@example.com",
-      phone: "444-555-6666",
-      role: "Staff",
-    },
-    {
-      firstname: "Charlie",
-      lastname: "Davis",
-      email: "charlie.davis@example.com",
-      phone: "333-222-1111",
-      role: "Admin",
-    },
-    {
-      firstname: "David",
-      lastname: "Evans",
-      email: "david.evans@example.com",
-      phone: "222-333-4444",
-      role: "Staff",
-    },
-    // Add more employee records as needed
-  ];
+  useEffect(() => {
+    const fetchEmployees = async () => {
+      try {
+        const response = await fetch("/api/employees");
+        const data = await response.json();
+        setEmployees(data.data);
+      } catch (error) {
+        console.error("Error fetching employees:", error);
+      }
+    };
+
+    fetchEmployees();
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -183,10 +179,10 @@ export default function Employees() {
                       className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                     >
                       <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
-                        {employee.firstname}
+                        {employee.firstName}
                       </td>
                       <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
-                        {employee.lastname}
+                        {employee.lastName}
                       </td>
                       <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
                         {employee.email}

@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface EditEmployeeModalProps {
   isOpen: boolean;
   onClose: () => void;
   employee: {
-    firstname: string;
-    lastname: string;
+    _id: string;
+    firstName: string;
+    lastName: string;
     email: string;
     phone: string;
     role: string;
@@ -21,6 +22,10 @@ export default function EditEmployeeModal({
 }: EditEmployeeModalProps) {
   const [updatedEmployee, setUpdatedEmployee] = useState(employee);
 
+  useEffect(() => {
+    setUpdatedEmployee(employee);
+  }, [employee]);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -28,9 +33,31 @@ export default function EditEmployeeModal({
     setUpdatedEmployee((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSave = () => {
-    onSave(updatedEmployee);
-    onClose();
+  const handleSave = async () => {
+    try {
+      console.log("Saving updated employee:", updatedEmployee);
+
+      const response = await fetch("/api/employees", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedEmployee),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Failed to update employee:", errorText);
+        throw new Error("Failed to update employee");
+      }
+
+      const data = await response.json();
+      console.log("Updated employee data:", data);
+      onSave(data.data);
+      onClose();
+    } catch (error) {
+      console.error("Error updating employee:", error);
+    }
   };
 
   if (!isOpen) return null;
@@ -44,16 +71,16 @@ export default function EditEmployeeModal({
         <div className="space-y-4">
           <input
             type="text"
-            name="firstname"
-            value={updatedEmployee.firstname}
+            name="firstName"
+            value={updatedEmployee.firstName}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded"
-            placeholder="Firstname"
+            placeholder="FirstName"
           />
           <input
             type="text"
-            name="lastname"
-            value={updatedEmployee.lastname}
+            name="lastName"
+            value={updatedEmployee.lastName}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded"
             placeholder="LastName"
