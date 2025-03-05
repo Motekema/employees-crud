@@ -3,16 +3,22 @@ import SideBar from "../Components/SideBar";
 import NavBar from "../Components/NavBar";
 import Footer from "../Components/Footer";
 import EditEmployeeModal from "../Components/EditEmployeeModal";
+import CreateEmployeeModal from "../Components/CreateEmployeeModal";
 
 export default function Employees() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(
     null
   );
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   const handleEditClick = (employee: Employee) => {
     setSelectedEmployee(employee);
     setIsEditModalOpen(true);
+  };
+
+  const handleCreateClick = () => {
+    setIsCreateModalOpen(true);
   };
 
   interface Employee {
@@ -26,6 +32,11 @@ export default function Employees() {
   const handleSave = (updatedEmployee: Employee) => {
     // Save the updated employee details
     console.log("Updated Employee:", updatedEmployee);
+  };
+
+  const handleCreateSave = (newEmployee: Employee) => {
+    // Save the new employee details
+    console.log("New Employee:", newEmployee);
   };
 
   const employees: Employee[] = [
@@ -132,7 +143,13 @@ export default function Employees() {
             <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
               Employee Records
             </h2>
-            <div className="overflow-x-auto">
+            <button
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              onClick={handleCreateClick}
+            >
+              Add Employee
+            </button>
+            <div className="overflow-x-auto mt-4">
               <table className="w-full min-w-[800px] bg-white dark:bg-gray-800 border-collapse">
                 <thead className="bg-gray-50 dark:bg-gray-700">
                   <tr>
@@ -206,6 +223,13 @@ export default function Employees() {
           onClose={() => setIsEditModalOpen(false)}
           employee={selectedEmployee}
           onSave={handleSave}
+        />
+      )}
+      {isCreateModalOpen && (
+        <CreateEmployeeModal
+          isOpen={isCreateModalOpen}
+          onClose={() => setIsCreateModalOpen(false)}
+          onSave={handleCreateSave}
         />
       )}
     </div>
