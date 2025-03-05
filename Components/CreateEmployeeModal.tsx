@@ -3,12 +3,12 @@ import { useState } from "react";
 interface CreateEmployeeModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (employee: Employee) => void;
+  onSave: (employee: Employee) => void; // Update the type signature
 }
 
 interface Employee {
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
   role: string;
@@ -20,8 +20,8 @@ export default function CreateEmployeeModal({
   onSave,
 }: CreateEmployeeModalProps) {
   const [employee, setEmployee] = useState<Employee>({
-    firstname: "",
-    lastname: "",
+    firstName: "",
+    lastName: "",
     email: "",
     phone: "",
     role: "Staff",
@@ -34,9 +34,32 @@ export default function CreateEmployeeModal({
     setEmployee((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = () => {
-    onSave(employee);
-    onClose();
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch("/api/employees", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: employee.firstName,
+          lastName: employee.lastName,
+          email: employee.email,
+          phone: employee.phone,
+          role: employee.role,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save employee");
+      }
+
+      const data = await response.json();
+      onSave(data.data);
+      onClose();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   if (!isOpen) return null;
@@ -50,17 +73,17 @@ export default function CreateEmployeeModal({
         <div className="space-y-4">
           <input
             type="text"
-            name="firstname"
+            name="firstName" // Ensure the name matches the expected key
             placeholder="First Name"
-            value={employee.firstname}
+            value={employee.firstName}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-lg"
           />
           <input
             type="text"
-            name="lastname"
+            name="lastName" // Ensure the name matches the expected key
             placeholder="Last Name"
-            value={employee.lastname}
+            value={employee.lastName}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-lg"
           />

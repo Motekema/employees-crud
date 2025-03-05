@@ -34,9 +34,9 @@ export default function Employees() {
     console.log("Updated Employee:", updatedEmployee);
   };
 
-  const handleCreateSave = (newEmployee: Employee) => {
+  const handleCreateSave = (employee: Employee) => {
     // Save the new employee details
-    console.log("New Employee:", newEmployee);
+    console.log("New Employee:", employee);
   };
 
   const employees: Employee[] = [
