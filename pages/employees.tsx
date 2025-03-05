@@ -61,52 +61,52 @@ export default function Employees() {
             <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
               Employee Records
             </h2>
-            <div className="overflow-x-auto">
-              <table className="min-w-full bg-white dark:bg-gray-800 border-collapse border border-gray-200 dark:border-gray-700">
-                <thead>
+            <div className="overflow-x-auto shadow-md rounded-lg">
+              <table className="min-w-full bg-white dark:bg-gray-800 border-collapse">
+                <thead className="bg-gray-50 dark:bg-gray-700">
                   <tr>
-                    <th className="py-2 px-4 border border-gray-200 dark:border-gray-700">
+                    <th className="py-3 px-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">
                       Firstname
                     </th>
-                    <th className="py-2 px-4 border border-gray-200 dark:border-gray-700">
+                    <th className="py-3 px-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">
                       LastName
                     </th>
-                    <th className="py-2 px-4 border border-gray-200 dark:border-gray-700">
+                    <th className="py-3 px-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">
                       Email
                     </th>
-                    <th className="py-2 px-4 border border-gray-200 dark:border-gray-700">
+                    <th className="py-3 px-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">
                       Phone
                     </th>
-                    <th className="py-2 px-4 border border-gray-200 dark:border-gray-700">
+                    <th className="py-3 px-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">
                       Role
                     </th>
-                    <th className="py-2 px-4 border border-gray-200 dark:border-gray-700">
+                    <th className="py-3 px-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">
                       Actions
                     </th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td className="py-2 px-4 border border-gray-200 dark:border-gray-700">
+                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                  <tr className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                    <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
                       John
                     </td>
-                    <td className="py-2 px-4 border border-gray-200 dark:border-gray-700">
+                    <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
                       Doe
                     </td>
-                    <td className="py-2 px-4 border border-gray-200 dark:border-gray-700">
+                    <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
                       john.doe@example.com
                     </td>
-                    <td className="py-2 px-4 border border-gray-200 dark:border-gray-700">
+                    <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
                       123-456-7890
                     </td>
-                    <td className="py-2 px-4 border border-gray-200 dark:border-gray-700">
+                    <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
                       Admin
                     </td>
-                    <td className="py-2 px-4 border border-gray-200 dark:border-gray-700">
-                      <button className="text-blue-500 hover:underline">
+                    <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
+                      <button className="text-blue-500 hover:text-blue-700 hover:underline">
                         Edit
                       </button>
-                      <button className="text-red-500 hover:underline ml-4">
+                      <button className="text-red-500 hover:text-red-700 hover:underline ml-4">
                         Delete
                       </button>
                     </td>
