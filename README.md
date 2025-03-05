@@ -1,40 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Employee's Record Web App
 
-## Getting Started
+## Overview
 
-First, run the development server:
+This project is a simple CRUD application for managing employee records. It is built using Next.js, MongoDB, and Tailwind CSS. The application supports creating, reading, updating, and deleting employee records. Additionally, authentication is implemented using NextAuth.js to ensure that only logged-in users can manage records.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Create a record (Firstname, LastName, Email, Phone, Role: Admin/Staff).
+- Read all records and display them in a list.
+- Update the First Name, LastName, Phone.
+- Delete a record.
+- User authentication with sign up, log in, and log out functionalities.
+- JWT-based authentication with NextAuth.js.
+- Server-side rendering (SSR) or static generation (SSG).
+- Error handling and proper validations.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Technologies Used
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- Next.js
+- MongoDB with Mongoose
+- React
+- Tailwind CSS
+- NextAuth.js for authentication
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+## Approach
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Project Setup**: Initialized a Next.js project and set up MongoDB with Mongoose for database operations.
+2. **UI Development**: Used React and Tailwind CSS to build a responsive and clean user interface.
+3. **CRUD Operations**: Implemented API routes in Next.js to handle create, read, update, and delete operations for employee records.
+4. **Authentication**: Integrated NextAuth.js for user authentication, ensuring that only authenticated users can perform CRUD operations.
+5. **Error Handling & Validation**: Added proper error handling and validations to ensure data integrity and a smooth user experience.
+6. **Deployment**: Deployed the application on Vercel/Netlify for easy access and sharing.
 
-## Learn More
+## Installation
 
-To learn more about Next.js, take a look at the following resources:
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   ```
+2. Install dependencies:
+   ```bash
+   cd employees-crud
+   npm install
+   ```
+3. Set up environment variables:
+   - Create a `.env.local` file in the root directory.
+   - Add the following variables:
+     ```
+     MONGODB_URI=<your-mongodb-uri>
+     NEXTAUTH_URL=<your-nextauth-url>
+     NEXTAUTH_SECRET=<your-nextauth-secret>
+     ```
+4. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+## Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Access the application at `http://localhost:3000`.
+- Sign up or log in to manage employee records.
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Deploy the application on Vercel/Netlify and share the link.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+## Evaluation Criteria
+
+- **Code Quality**: Well-structured and readable code.
+- **Functionality**: Meets the specified requirements.
+- **Best Practices**: Proper use of Next.js, React, and MongoDB.
+- **UI & UX**: Clean and responsive design.
+- **Documentation**: A clear README.md explaining the approach.
+
+## Submission
+
+- Push your code to GitHub and share the repository link.
+- Host the application on Vercel/Netlify and send the link to `career@deboik.com`.
+
+## Deadline
+
+- 48 hours from receiving this assessment.
