@@ -9,7 +9,7 @@ export default function Home() {
         {" "}
         {/* Add pl-16 to account for the fixed SideBar */}
         <SideBar /> {/* Include the SideBar component */}
-        <div className="flex-grow p-8">{/* Main content area */}</div>
+        <div className="flex-grow p-8"></div>
       </div>
     </div>
   );
