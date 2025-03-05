@@ -22,7 +22,7 @@ const SideBar: React.FC = () => {
           className="text-2xl hover:scale-110 transition-transform duration-200"
         />
       </a>
-      <a href="#clients" className="my-4 hover:text-gray-400">
+      <a href="#employees" className="my-4 hover:text-gray-400">
         <FontAwesomeIcon
           icon={faUsers}
           className="text-2xl hover:scale-110 transition-transform duration-200"
