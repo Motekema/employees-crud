@@ -1,8 +1,33 @@
+import { useState } from "react";
 import SideBar from "../Components/SideBar";
 import NavBar from "../Components/NavBar";
 import Footer from "../Components/Footer";
+import EditEmployeeModal from "../Components/EditEmployeeModal";
 
 export default function Employees() {
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(
+    null
+  );
+
+  const handleEditClick = (employee: Employee) => {
+    setSelectedEmployee(employee);
+    setIsEditModalOpen(true);
+  };
+
+  interface Employee {
+    firstname: string;
+    lastname: string;
+    email: string;
+    phone: string;
+    role: string;
+  }
+
+  const handleSave = (updatedEmployee: Employee) => {
+    // Save the updated employee details
+    console.log("Updated Employee:", updatedEmployee);
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <NavBar />
@@ -61,8 +86,8 @@ export default function Employees() {
             <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
               Employee Records
             </h2>
-            <div className="overflow-x-auto shadow-md rounded-lg">
-              <table className="min-w-full bg-white dark:bg-gray-800 border-collapse">
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[800px] bg-white dark:bg-gray-800 border-collapse">
                 <thead className="bg-gray-50 dark:bg-gray-700">
                   <tr>
                     <th className="py-3 px-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-300">
@@ -103,7 +128,18 @@ export default function Employees() {
                       Admin
                     </td>
                     <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
-                      <button className="text-blue-500 hover:text-blue-700 hover:underline">
+                      <button
+                        className="text-blue-500 hover:underline"
+                        onClick={() =>
+                          handleEditClick({
+                            firstname: "John",
+                            lastname: "Doe",
+                            email: "john.doe@example.com",
+                            phone: "123-456-7890",
+                            role: "Admin",
+                          })
+                        }
+                      >
                         Edit
                       </button>
                       <button className="text-red-500 hover:text-red-700 hover:underline ml-4">
@@ -119,6 +155,14 @@ export default function Employees() {
         </div>
       </div>
       <Footer />
+      {isEditModalOpen && selectedEmployee && (
+        <EditEmployeeModal
+          isOpen={isEditModalOpen}
+          onClose={() => setIsEditModalOpen(false)}
+          employee={selectedEmployee}
+          onSave={handleSave}
+        />
+      )}
     </div>
   );
 }
