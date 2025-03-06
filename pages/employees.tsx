@@ -5,6 +5,7 @@ import Footer from "../Components/Footer";
 import EditEmployeeModal from "../Components/EditEmployeeModal";
 import CreateEmployeeModal from "../Components/CreateEmployeeModal";
 import { Employee } from "../types/Employee"; // Import Employee type
+import ConfirmationModal from "../Components/ConfirmationModal"; // Import ConfirmationModal component
 
 export default function Employees() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -13,6 +14,8 @@ export default function Employees() {
   );
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [employees, setEmployees] = useState<Employee[]>([]);
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
+  const [employeeToDelete, setEmployeeToDelete] = useState<string | null>(null);
 
   const handleEditClick = (employee: Employee) => {
     setSelectedEmployee(employee);
@@ -23,8 +26,13 @@ export default function Employees() {
     setIsCreateModalOpen(true);
   };
 
-  const handleDeleteClick = async (employeeId: string) => {
-    if (!employeeId) {
+  const handleDeleteClick = (employeeId: string) => {
+    setEmployeeToDelete(employeeId);
+    setIsConfirmationModalOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!employeeToDelete) {
       console.error("Employee ID is undefined");
       return;
     }
@@ -34,7 +42,7 @@ export default function Employees() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ _id: employeeId }),
+        body: JSON.stringify({ _id: employeeToDelete }),
       });
 
       if (!response.ok) {
@@ -44,8 +52,10 @@ export default function Employees() {
       }
 
       setEmployees((prevEmployees) =>
-        prevEmployees.filter((employee) => employee._id !== employeeId)
+        prevEmployees.filter((employee) => employee._id !== employeeToDelete)
       );
+      setIsConfirmationModalOpen(false);
+      setEmployeeToDelete(null);
     } catch (error) {
       console.error("Error deleting employee:", error);
     }
@@ -255,6 +265,14 @@ export default function Employees() {
           isOpen={isCreateModalOpen}
           onClose={() => setIsCreateModalOpen(false)}
           onSave={handleCreateSave}
+        />
+      )}
+      {isConfirmationModalOpen && (
+        <ConfirmationModal
+          isOpen={isConfirmationModalOpen}
+          onClose={() => setIsConfirmationModalOpen(false)}
+          onConfirm={confirmDelete}
+          message="Are you sure you want to delete this employee?"
         />
       )}
     </div>
