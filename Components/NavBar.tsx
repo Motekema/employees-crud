@@ -20,7 +20,7 @@ const NavBar: React.FC = () => {
         <span className="ml-2 text-xl font-bold">Employee's Nav</span>
       </div>
       <div className="flex items-center">
-        {session ? (
+        {session && session.user ? (
           <>
             <span className="ml-2 mr-4 font-bold">
               You are logged in as: {session.user.firstName} (
