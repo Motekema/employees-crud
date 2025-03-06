@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import Link from "next/link"; // Add this import
 
@@ -64,7 +64,7 @@ export default function SignIn() {
           </button>
         </form>
         <p className="mt-4 text-center text-gray-700 dark:text-gray-300">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Link href="/auth/signup" className="text-blue-600 hover:underline">
             Sign Up
           </Link>

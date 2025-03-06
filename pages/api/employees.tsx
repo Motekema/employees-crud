@@ -12,7 +12,7 @@ const connectToDatabase = async () => {
   return mongoose.connect(mongoUri);
 };
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     await connectToDatabase();
 
@@ -88,3 +88,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+export default handler;
