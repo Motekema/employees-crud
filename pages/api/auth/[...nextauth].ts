@@ -32,7 +32,7 @@ export default NextAuth({
 
         if (user && bcrypt.compareSync(credentials?.password, user.password)) {
           return {
-            id: user._id,
+            id: user._id.toString(), // Convert ObjectId to string
             email: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
