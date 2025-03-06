@@ -20,25 +20,23 @@ const NavBar: React.FC = () => {
         <span className="ml-2 text-xl font-bold">Employee's Nav</span>
       </div>
       <div className="flex items-center">
-        <Image
-          src="/images/user-avatar.svg"
-          alt="User Avatar"
-          width={40}
-          height={40}
-          className="rounded-full hover:opacity-80"
-        />
-        <span className="ml-2 mr-4">Logged in as: User</span>
         {session ? (
-          <button
-            onClick={() => signOut()}
-            className="bg-red-600 px-4 py-2 rounded-lg hover:bg-red-700 transition duration-300"
-          >
-            Log Out
-          </button>
+          <>
+            <span className="ml-2 mr-4">
+              You are logged in as: {session.user.firstName} (
+              {session.user.role})
+            </span>
+            <button
+              onClick={() => signOut()}
+              className="bg-red-600 px-4 py-2 rounded-lg hover:bg-red-700 transition duration-300 shadow-md"
+            >
+              Log Out
+            </button>
+          </>
         ) : (
           <Link
             href="/auth/signin"
-            className="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
+            className="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 shadow-md"
           >
             Sign In
           </Link>
