@@ -197,42 +197,43 @@ export default function Employees() {
                   className="divide-y divide-gray-200 dark:divide-gray-700"
                   style={{ maxHeight: "10px", overflowY: "auto" }}
                 >
-                  {employees.map((employee, index) => (
-                    <tr
-                      key={index}
-                      className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-                    >
-                      <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
-                        {employee.firstName}
-                      </td>
-                      <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
-                        {employee.lastName}
-                      </td>
-                      <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
-                        {employee.email}
-                      </td>
-                      <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
-                        {employee.phone}
-                      </td>
-                      <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
-                        {employee.role}
-                      </td>
-                      <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
-                        <button
-                          className="text-blue-500 hover:underline"
-                          onClick={() => handleEditClick(employee)}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          className="text-red-500 hover:text-red-700 hover:underline ml-4"
-                          onClick={() => handleDeleteClick(employee._id)}
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                  {employees &&
+                    employees.map((employee, index) => (
+                      <tr
+                        key={index}
+                        className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                      >
+                        <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
+                          {employee.firstName}
+                        </td>
+                        <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
+                          {employee.lastName}
+                        </td>
+                        <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
+                          {employee.email}
+                        </td>
+                        <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
+                          {employee.phone}
+                        </td>
+                        <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
+                          {employee.role}
+                        </td>
+                        <td className="py-3 px-4 text-sm text-gray-700 dark:text-gray-300">
+                          <button
+                            className="text-blue-500 hover:underline"
+                            onClick={() => handleEditClick(employee)}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            className="text-red-500 hover:text-red-700 hover:underline ml-4"
+                            onClick={() => handleDeleteClick(employee._id)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
