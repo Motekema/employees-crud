@@ -56,13 +56,13 @@ export default NextAuth({
     async jwt({ token, user }) {
       if (user) {
         const typedUser = user as {
-          id: string;
+          _id: string;
           firstName: string;
           lastName: string;
           phone: string;
           role: string;
         };
-        token.id = typedUser.id;
+        token.id = typedUser._id;
         token.firstName = typedUser.firstName;
         token.lastName = typedUser.lastName;
         token.phone = typedUser.phone;
