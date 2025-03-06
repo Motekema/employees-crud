@@ -106,8 +106,14 @@ export default function Employees() {
     const fetchEmployees = async () => {
       try {
         const response = await fetch("/api/employees");
-        const data = await response.json();
-        setEmployees(data.data);
+        const text = await response.text();
+        try {
+          const data = JSON.parse(text);
+          setEmployees(data.data);
+        } catch (jsonError) {
+          console.error("Failed to parse JSON:", jsonError);
+          console.error("Response text:", text);
+        }
       } catch (error) {
         console.error("Error fetching employees:", error);
       }
