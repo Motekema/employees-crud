@@ -58,6 +58,24 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
       console.log("Updated employee:", updatedEmployee);
       return res.status(200).json({ data: updatedEmployee });
+    } else if (req.method === "DELETE") {
+      const { _id } = req.body;
+
+      if (!_id) {
+        return res.status(400).json({ error: "Missing employee ID" });
+      }
+
+      console.log("Deleting employee with ID:", _id);
+
+      const deletedEmployee = await Employee.findByIdAndDelete(_id);
+
+      if (!deletedEmployee) {
+        console.error("Employee not found with ID:", _id);
+        return res.status(404).json({ error: "Employee not found" });
+      }
+
+      console.log("Deleted employee:", deletedEmployee);
+      return res.status(200).json({ data: deletedEmployee });
     }
 
     res.status(405).json({ error: "Method not allowed" });

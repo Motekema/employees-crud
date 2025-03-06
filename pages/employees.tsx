@@ -22,6 +22,30 @@ export default function Employees() {
     setIsCreateModalOpen(true);
   };
 
+  const handleDeleteClick = async (employeeId: string) => {
+    try {
+      const response = await fetch(`/api/employees`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ _id: employeeId }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Failed to delete employee:", errorText);
+        throw new Error("Failed to delete employee");
+      }
+
+      setEmployees((prevEmployees) =>
+        prevEmployees.filter((employee) => employee._id !== employeeId)
+      );
+    } catch (error) {
+      console.error("Error deleting employee:", error);
+    }
+  };
+
   interface Employee {
     _id: string;
     firstName: string;
@@ -200,7 +224,10 @@ export default function Employees() {
                         >
                           Edit
                         </button>
-                        <button className="text-red-500 hover:text-red-700 hover:underline ml-4">
+                        <button
+                          className="text-red-500 hover:text-red-700 hover:underline ml-4"
+                          onClick={() => handleDeleteClick(employee._id)}
+                        >
                           Delete
                         </button>
                       </td>
