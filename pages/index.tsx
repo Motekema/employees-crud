@@ -2,8 +2,29 @@ import SideBar from "../Components/SideBar";
 import NavBar from "../Components/NavBar";
 import Footer from "../Components/Footer";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
+  const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (!session) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-lg text-gray-700 dark:text-gray-300">
+          You need to be authenticated to view this page. Please{" "}
+          <Link href="/auth/signin" className="text-blue-600">
+            sign in
+          </Link>
+          .
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col min-h-screen">
       <NavBar />
