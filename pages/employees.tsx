@@ -7,7 +7,6 @@ import CreateEmployeeModal from "../Components/CreateEmployeeModal";
 import { Employee } from "../types/Employee"; // Import Employee type
 import ConfirmationModal from "../Components/ConfirmationModal"; // Import ConfirmationModal component
 import PasswordConfirmationModal from "../Components/PasswordConfirmationModal"; // Import PasswordConfirmationModal component
-import { useSession } from "next-auth/react"; // Import useSession from next-auth/react
 
 export default function Employees() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
