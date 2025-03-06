@@ -79,7 +79,7 @@ export default NextAuth({
           phone: string;
           role: string;
         };
-        typedUser._id = token.id;
+        typedUser._id = token.id as string;
         typedUser.firstName = token.firstName;
         typedUser.lastName = token.lastName;
         typedUser.phone = token.phone;
