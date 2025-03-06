@@ -1,6 +1,7 @@
 import SideBar from "../Components/SideBar";
 import NavBar from "../Components/NavBar";
 import Footer from "../Components/Footer";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -63,12 +64,11 @@ export default function Home() {
 
           {/* Call to Action */}
           <div className="mt-8 text-center">
-            <a
-              href="/employees"
-              className="px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300"
-            >
-              View Employees
-            </a>
+            <Link href="/employees">
+              <a className="px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300">
+                View Employees
+              </a>
+            </Link>
           </div>
         </div>
       </div>
