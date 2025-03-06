@@ -55,11 +55,18 @@ export default NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
-        token.firstName = user.firstName;
-        token.lastName = user.lastName;
-        token.phone = user.phone;
-        token.role = user.role;
+        const typedUser = user as {
+          id: string;
+          firstName: string;
+          lastName: string;
+          phone: string;
+          role: string;
+        };
+        token.id = typedUser.id;
+        token.firstName = typedUser.firstName;
+        token.lastName = typedUser.lastName;
+        token.phone = typedUser.phone;
+        token.role = typedUser.role;
       }
       return token;
     },
