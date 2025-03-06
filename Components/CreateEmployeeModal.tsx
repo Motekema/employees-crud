@@ -1,17 +1,10 @@
 import { useState } from "react";
+import { Employee } from "../types/Employee"; // Import Employee type
 
 interface CreateEmployeeModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (employee: Employee) => void; // Update the type signature
-}
-
-interface Employee {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  role: string;
+  onSave: (employee: Employee) => void;
 }
 
 export default function CreateEmployeeModal({
@@ -19,7 +12,7 @@ export default function CreateEmployeeModal({
   onClose,
   onSave,
 }: CreateEmployeeModalProps) {
-  const [employee, setEmployee] = useState<Employee>({
+  const [employee, setEmployee] = useState<Omit<Employee, "_id">>({
     firstName: "",
     lastName: "",
     email: "",
@@ -36,18 +29,17 @@ export default function CreateEmployeeModal({
 
   const handleSubmit = async () => {
     try {
+      const newEmployee: Employee = {
+        ...employee,
+        _id: Date.now().toString(), // Generate a temporary unique identifier
+      };
+
       const response = await fetch("/api/employees", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          firstName: employee.firstName,
-          lastName: employee.lastName,
-          email: employee.email,
-          phone: employee.phone,
-          role: employee.role,
-        }),
+        body: JSON.stringify(newEmployee),
       });
 
       if (!response.ok) {

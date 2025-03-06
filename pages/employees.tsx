@@ -4,6 +4,7 @@ import NavBar from "../Components/NavBar";
 import Footer from "../Components/Footer";
 import EditEmployeeModal from "../Components/EditEmployeeModal";
 import CreateEmployeeModal from "../Components/CreateEmployeeModal";
+import { Employee } from "../types/Employee"; // Import Employee type
 
 export default function Employees() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -23,6 +24,10 @@ export default function Employees() {
   };
 
   const handleDeleteClick = async (employeeId: string) => {
+    if (!employeeId) {
+      console.error("Employee ID is undefined");
+      return;
+    }
     try {
       const response = await fetch(`/api/employees`, {
         method: "DELETE",
@@ -45,15 +50,6 @@ export default function Employees() {
       console.error("Error deleting employee:", error);
     }
   };
-
-  interface Employee {
-    _id: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    role: string;
-  }
 
   const handleSave = async (updatedEmployee: Employee) => {
     try {
@@ -87,7 +83,12 @@ export default function Employees() {
   };
 
   const handleCreateSave = (employee: Employee) => {
-    setEmployees((prevEmployees) => [...prevEmployees, employee]);
+    // Ensure new employees have a temporary unique identifier
+    const newEmployee = {
+      ...employee,
+      _id: employee._id || Date.now().toString(),
+    };
+    setEmployees((prevEmployees) => [...prevEmployees, newEmployee]);
     setIsCreateModalOpen(false);
   };
 
@@ -227,7 +228,7 @@ export default function Employees() {
                           </button>
                           <button
                             className="text-red-500 hover:text-red-700 hover:underline ml-4"
-                            onClick={() => handleDeleteClick(employee._id)}
+                            onClick={() => handleDeleteClick(employee._id!)}
                           >
                             Delete
                           </button>
