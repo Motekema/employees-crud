@@ -64,11 +64,10 @@ export default function Home() {
 
           {/* Call to Action */}
           <div className="mt-8 text-center">
-            <Link
-              href="/employees"
-              className="px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300"
-            >
-              View Employees
+            <Link href="/employees">
+              <a className="px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300">
+                View Employees
+              </a>
             </Link>
           </div>
         </div>
