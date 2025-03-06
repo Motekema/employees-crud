@@ -6,8 +6,11 @@ import EditEmployeeModal from "../Components/EditEmployeeModal";
 import CreateEmployeeModal from "../Components/CreateEmployeeModal";
 import { Employee } from "../types/Employee"; // Import Employee type
 import ConfirmationModal from "../Components/ConfirmationModal"; // Import ConfirmationModal component
+import PasswordConfirmationModal from "../Components/PasswordConfirmationModal"; // Import PasswordConfirmationModal component
+import { useSession } from "next-auth/react"; // Import useSession from next-auth/react
 
 export default function Employees() {
+  const { data: session } = useSession();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(
     null
@@ -16,10 +19,14 @@ export default function Employees() {
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const [employeeToDelete, setEmployeeToDelete] = useState<string | null>(null);
+  const [isPasswordConfirmationModalOpen, setIsPasswordConfirmationModalOpen] =
+    useState(false);
+  const [actionType, setActionType] = useState<"edit" | "delete" | null>(null);
 
   const handleEditClick = (employee: Employee) => {
     setSelectedEmployee(employee);
-    setIsEditModalOpen(true);
+    setActionType("edit");
+    setIsPasswordConfirmationModalOpen(true);
   };
 
   const handleCreateClick = () => {
@@ -28,7 +35,8 @@ export default function Employees() {
 
   const handleDeleteClick = (employeeId: string) => {
     setEmployeeToDelete(employeeId);
-    setIsConfirmationModalOpen(true);
+    setActionType("delete");
+    setIsPasswordConfirmationModalOpen(true);
   };
 
   const confirmDelete = async () => {
@@ -121,6 +129,15 @@ export default function Employees() {
 
     fetchEmployees();
   }, []);
+
+  const handlePasswordConfirm = () => {
+    if (actionType === "edit" && selectedEmployee) {
+      setIsEditModalOpen(true);
+    } else if (actionType === "delete") {
+      setIsConfirmationModalOpen(true);
+    }
+    setIsPasswordConfirmationModalOpen(false);
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -279,6 +296,13 @@ export default function Employees() {
           onClose={() => setIsConfirmationModalOpen(false)}
           onConfirm={confirmDelete}
           message="Are you sure you want to delete this employee?"
+        />
+      )}
+      {isPasswordConfirmationModalOpen && (
+        <PasswordConfirmationModal
+          isOpen={isPasswordConfirmationModalOpen}
+          onClose={() => setIsPasswordConfirmationModalOpen(false)}
+          onConfirm={handlePasswordConfirm}
         />
       )}
     </div>
