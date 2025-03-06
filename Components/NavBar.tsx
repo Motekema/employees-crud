@@ -23,8 +23,7 @@ const NavBar: React.FC = () => {
         {session && session.user ? (
           <>
             <span className="ml-2 mr-4 font-bold">
-              You are logged in as: {session.user.name || "User"} (
-              {session.user.email || "No Role"})
+              You are logged in as: {session.user.role} ({session.user.email})
             </span>
             <button
               onClick={() => signOut()}
