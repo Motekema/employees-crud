@@ -10,7 +10,6 @@ import PasswordConfirmationModal from "../Components/PasswordConfirmationModal";
 import { useSession } from "next-auth/react"; // Import useSession from next-auth/react
 
 export default function Employees() {
-  const { data: session } = useSession();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(
     null
