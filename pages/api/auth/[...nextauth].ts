@@ -55,7 +55,7 @@ export default NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        const typedUser = user as {
+        const typedUser = user as unknown as {
           _id: string;
           firstName: string;
           lastName: string;
