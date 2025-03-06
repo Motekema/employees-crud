@@ -107,8 +107,12 @@ export default function CreateEmployeeModal({
               onChange={handleChange}
               className="w-full px-4 py-2 border rounded-lg"
             >
-              <option value="Staff">Staff</option>
-              <option value="Admin">Admin</option>
+              <option value="Staff" className="text-black">
+                Staff
+              </option>
+              <option value="Admin" className="text-black">
+                Admin
+              </option>
             </select>
           </div>
           <div className="mt-6 flex justify-end space-x-4">

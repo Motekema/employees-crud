@@ -113,8 +113,12 @@ export default function EditEmployeeModal({
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded"
             >
-              <option value="Admin">Admin</option>
-              <option value="Staff">Staff</option>
+              <option value="Admin" className="text-black">
+                Admin
+              </option>
+              <option value="Staff" className="text-black">
+                Staff
+              </option>
             </select>
           </div>
           <div className="mt-6 flex justify-end space-x-4">
