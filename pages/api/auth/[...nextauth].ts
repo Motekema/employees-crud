@@ -80,10 +80,10 @@ export default NextAuth({
           role: string;
         };
         typedUser._id = token.id as string;
-        typedUser.firstName = token.firstName;
-        typedUser.lastName = token.lastName;
-        typedUser.phone = token.phone;
-        typedUser.role = token.role;
+        typedUser.firstName = token.firstName as string;
+        typedUser.lastName = token.lastName as string;
+        typedUser.phone = token.phone as string;
+        typedUser.role = token.role as string;
       }
       return session;
     },
