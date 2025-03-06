@@ -72,11 +72,18 @@ export default NextAuth({
     },
     async session({ session, token }) {
       if (session.user) {
-        session.user._id = token.id;
-        session.user.firstName = token.firstName;
-        session.user.lastName = token.lastName;
-        session.user.phone = token.phone;
-        session.user.role = token.role;
+        const typedUser = session.user as {
+          _id: string;
+          firstName: string;
+          lastName: string;
+          phone: string;
+          role: string;
+        };
+        typedUser._id = token.id;
+        typedUser.firstName = token.firstName;
+        typedUser.lastName = token.lastName;
+        typedUser.phone = token.phone;
+        typedUser.role = token.role;
       }
       return session;
     },
