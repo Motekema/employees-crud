@@ -30,7 +30,11 @@ export default NextAuth({
           email: credentials?.email,
         });
 
-        if (user && bcrypt.compareSync(credentials?.password, user.password)) {
+        if (
+          user &&
+          credentials?.password &&
+          bcrypt.compareSync(credentials.password, user.password)
+        ) {
           return {
             id: user._id.toString(), // Convert ObjectId to string
             email: user.email,
